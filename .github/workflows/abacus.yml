@@ -25,10 +25,9 @@ jobs:
       run: npx playwright install --with-deps
 
     - name: Run Playwright tests
+      run: npx playwright test --headed --trace on --reporter=list,html --video on
       env:
-        PLAYWRIGHT_VIDEO: "1"
         PLAYWRIGHT_SCREENSHOT: "on"
-      run: npx playwright test --headed --video=on --trace on
 
     - name: Upload test results
       if: always()
