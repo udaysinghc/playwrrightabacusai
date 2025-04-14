@@ -25,16 +25,27 @@ jobs:
       run: npx playwright install --with-deps
 
     - name: Run Playwright tests
-      run: npx playwright test --headed --trace on --reporter=list,html --video on
+      run: npx playwright test --headed --trace on --reporter=list,html --record-video on
       env:
         PLAYWRIGHT_SCREENSHOT: "on"
 
-    - name: Upload test results
-      if: always()
+    - name: Upload test results (Success)
+      if: success()
       uses: actions/upload-artifact@v4
       with:
-        name: playwright-report
+        name: playwright-report-success
         path: |
           playwright-report/
           test-results/
+        retention-days: 30
+
+    - name: Upload test results (Failure)
+      if: failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: playwright-report-failure
+        path: |
+          playwright-report/
+          test-results/
+          test-results/*/*.webm
         retention-days: 30
