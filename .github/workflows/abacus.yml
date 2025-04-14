@@ -25,7 +25,7 @@ jobs:
       run: npx playwright install --with-deps
 
     - name: Run Playwright tests
-      run: npx playwright test --headed --trace on --reporter=list,html --video="on"
+      run: npx playwright test --headed --trace on --reporter=list,html --record-video on
       env:
         PLAYWRIGHT_SCREENSHOT: "on"
 
